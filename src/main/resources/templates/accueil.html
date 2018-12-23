@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="UTF-8"/>
+
+
+    <title>Accueil</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' />
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/agency.min.css" rel="stylesheet" th:href="@{/css/agency.min.css}" />
+
+
+
+
+</head>
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+ <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">MIKI SHOP</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive"  th:if="not ${user}" >
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/inscri">Crée un compte </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/login">Se connecter </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+                </li>
+
+            </ul>
+        </div>
+     <div class="collapse navbar-collapse" id="navbarResponsive"  th:if="${user}" >
+         <ul class="navbar-nav text-uppercase ml-auto">
+                <li  class="nav-item" >
+                    <a  class="nav-link js-scroll-trigger" th:if="not ${user.admin} and ${commande}" href="/commande">Voir panier</a>
+                </li>
+             <li  class="nav-item" >
+             <a class="nav-link js-scroll-trigger" href="/preAjoutJouet" th:if="${user.admin}"> Ajouter jouets </a>
+             </li>
+                <li  class="nav-item" >
+                    <a class="nav-link js-scroll-trigger" href="/accueilDeconnexion" >Se déconnecter </a>
+                </li>
+             <li class="nav-item">
+                 <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+             </li>
+
+
+            </ul>
+        </div>
+ </div>
+</nav>
+
+
+<!-- Header -->
+<header class="masthead">
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in">Bienvenue Sur Notre Site !</div>
+            <div class="intro-heading text-uppercase">Jouer Avec MIKI C'est Jamais Fini</div>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">Notre Catalogue</a>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+
+<!-- Portfolio Grid -->
+<section class="bg-light" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Catalogue</h2>
+                <h3 class="section-subheading text-muted">Vos jeux et jouets au meilleur prix </h3>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 portfolio-item"   th:each="jouet : ${jouets}"   >
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                            <i class="fa fa-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img class="img-fluid" th:src="@{|/img/${jouet.photo}|}" alt=""/>
+                </a>
+                <div class="portfolio-caption" style="margin-right: 50px" >
+                    <h4 th:text="${jouet.nom}"></h4>
+                    <p class="text-muted" th:text="${jouet.prix}+DT"></p>
+                </div>
+                <div th:if="${user}">
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" th:if="${user.admin}" th:href="@{|/SuppJouet/${jouet.id}|}" style="padding-bottom: 10px;padding-top: 10px" > Supprimer jouets </a>
+                    <br/>
+                    <br/>
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  th:if="${user.admin}" th:href="@{|/PreModifJouet/${jouet.id}|}" style="padding-right: 17%;padding-top: 10px;padding-bottom: 10px"> Modifier jouets   </a>
+
+
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  th:if="not ${user.admin}" th:href="@{|/AjoutPanier/${jouet.id}|}" style="padding-bottom: 10px;padding-top: 10px"> Ajouter au panier </a>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body" th:each="jouet : ${jouets}" >
+                            <!-- Project Details Go Here -->
+                            <h2 class="text-uppercase" th:text="${jouet.nom}"></h2>
+                            <p class="item-intro text-muted" th:text="${jouet.prix}+DT"></p>
+                            <img class="img-fluid d-block mx-auto" th:src="@{|/img/${jouet.photo}|}" alt=""/>
+                            <p th:text="${jouet.description}"></p>
+
+                            <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                <i class="fa fa-times"></i>
+                                Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+ <section id="services">
+
+    <div class="container">
+        <div class="row">
+    <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">Catalogue</h2>
+        <h3 class="section-subheading text-muted">Vos jeux et jouets au meilleur prix </h3>
+    </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4" th:each="jouet : ${jouets}">
+            <span class="fa-stack fa-4x">
+
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                <img class="fa fa-circle fa-stack-2x text-primary" th:src="@{|/img/${jouet.photo}|}"/>
+            </span>
+                <h4 class="service-heading" th:text="${jouet.nom}"></h4>
+                <h5 class="service-heading" th:text="${jouet.prix} + DT"></h5>
+                <p class="text-muted" th:text="${jouet.description}"></p>
+                <div th:if="${user}">
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" th:if="${user.admin}" th:href="@{|/SuppJouet/${jouet.id}|}"> Supprimer jouets </a>
+                    <br/>
+                    <br/>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  th:if="${user.admin}" th:href="@{|/PreModifJouet/${jouet.id}|}"> Modifier jouets   </a>
+
+
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"  th:if="not ${user.admin}" th:href="@{|/AjoutPanier/${jouet.id}|}"> Ajouter au panier </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>-->
+
+    <section class="bg-light" id="team">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+
+                </div>
+            </div>
+            <br/>
+            <br/>
+
+            <div class="row" align="center">
+                <div class="col-sm-6">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="img/team/4.jpg" alt=""/>
+                        <h4>Iheb Kilani</h4>
+                        <p class="text-muted">Lead Designer</p>
+                        <ul class="list-inline social-buttons">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/iheb.kilani.7">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="team-member">
+                        <img class="mx-auto rounded-circle" src="img/team/5.jpg" alt=""/>
+                        <h4>Yosr Merchaoui</h4>
+                        <p class="text-muted">Lead Marketer</p>
+                        <ul class="list-inline social-buttons">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/yossr.merchaoui.5">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+
+    </section>
+
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Copyright &copy; MIKI SHOP 2018</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item">
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/agency.min.js"></script>
+</body>
+</html>

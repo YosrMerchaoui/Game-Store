@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Commandes</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' />
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/agency.min.css" rel="stylesheet" th:href="@{/css/agency.min.css}" />
+
+
+
+</head>
+
+
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" >
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">MIKI SHOP</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive" >
+            <ul class="navbar-nav text-uppercase ml-auto">
+
+                <li  class="nav-item" >
+                    <a class="nav-link js-scroll-trigger" href="/" > Accueil</a>
+                </li>
+                <li  class="nav-item" >
+                    <a class="nav-link js-scroll-trigger" href="/accueilDeconnexion" >Se déconnecter </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<header class="masthead" th:style="'background:url(' + @{/img/ts1.jpg} + ') center;'">
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in">Mon Panier Est Plein De Jouets !</div>
+            <div class="intro-heading text-uppercase">Jouer Avec MIKI C'est Jamais Fini</div>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Mes commandes</a>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<section id="services" >
+
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Mes commandes</h2>
+
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4" th:each="cmdJouet : ${cmdJouets}">
+            <span class="fa-stack fa-4x">
+
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                <img class="fa fa-circle fa-stack-2x text-primary" th:src="@{|/img/${cmdJouet.photo}|}"/>
+            </span>
+                <h4 class="service-heading" th:text="${cmdJouet.nom}"></h4>
+                <h5 class="service-heading" th:text="${cmdJouet.prix} + DT"></h5>
+                <div>
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" th:href="@{|/supprimJouet/${cmdJouet.id}|}" style="padding-top: 10px;padding-bottom: 10px" > Supprimer </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+<form th:action="@{/Validate}">
+    <div class="row">
+        <div class="col-md-6"  style="margin-left:25%">
+            <div class="form-group" style="padding-left: 150px;padding-right: 150px">
+    <h3 class="section-subheading text-muted">le prix total est : </h3>
+    <h3 th:text="${commande.prixTotal}"></h3>
+                <p class="help-block text-danger"></p>
+            </div>
+
+                <div class="form-group" style="padding-left: 150px;padding-right: 150px">
+     <input class="form-control" type="text" name="valider" id="valider" placeholder="Entrez l'adresse à laquelle la commande sera livré"/>
+                    <p class="help-block text-danger"></p>
+                </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-10 text-center" style="margin-left:9%">
+                <div id="success"></div>
+    <p> <input class="btn btn-primary btn-xl text-uppercase" style="padding-top: 10px;padding-bottom: 10px" type="submit" value="Confirmer "/></p>
+            </div>
+        </div>
+    </div>
+</form>
+<form th:action="@{/annulation}">
+    <div class="clearfix"></div>
+    <div class="col-lg-10 text-center" style="margin-left:9%">
+        <div id="success"></div>
+    <input class="btn btn-primary btn-xl text-uppercase" style="padding-top: 10px;padding-bottom: 10px;padding-left: 50px;padding-right: 50px;" type="submit" value="Annuler "/>
+    </div>
+</form>
+<br/>
+<br/>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Copyright &copy; MIKI SHOP 2018</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item">
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+<!--
+
+
+
+
+<table  th:each="cmdJouet : ${cmdJouets}"  >
+    <tr>
+        <td height="5" th:text="${cmdJouet.nom}"></td>
+        <td height="5" th:text="${cmdJouet.prix}"></td>
+        <td height="5" th:text="${cmdJouet.description}"></td>
+        <td height="5" ><img th:src="@{|/img/${cmdJouet.photo}|}"/></td>
+        <td height="5">
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" th:href="@{|/supprimJouet/${cmdJouet.id}|}"> Supprimer </a>
+        </td>
+
+
+    </tr>
+</table>
+
+<form th:action="@{/Validate}">
+    <p>le prix total est : </p>
+    <p th:text="${commande.prixTotal}"></p>
+    <p> Entrez l'adresse à laquelle la commande sera livré
+        <input type="text" name="valider" id="valider" /></p>
+    <p> <input type="submit" value="Confirmer "/></p>
+
+</form>
+<form th:action="@{/annulation}">
+    <p> <input type="submit" value="Annuler "/></p>
+</form>
+-->
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/agency.min.js"></script>
+</body>
+</html>

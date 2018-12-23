@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" />
+
+    <!-- Custom fonts for this template -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' />
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/agency.min.css" rel="stylesheet" th:href="@{/css/agency.min.css}" />
+
+
+</head>
+<body id="page-top" >
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" >
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">MIKI SHOP</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive" >
+            <ul class="navbar-nav text-uppercase ml-auto">
+
+                <li  class="nav-item" >
+                    <a class="nav-link js-scroll-trigger" href="/" > Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="/login">Se connecter </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section id="contact">
+    <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">Créer votre compte</h2>
+
+    </div>
+    <div class="container" align="center" >
+<form name="myForm" align="center" th:action="@{/inscriForm}" th:object="${user}"  method="post" >
+
+    <div class="row">
+        <div class="col-md-6" style="margin-left:25%">
+            <div class="form-group">
+        <input  th:field="*{cin}" name="cin"  class="form-control" placeholder="Entrez votre CIN" style="padding-top: 10px;padding-bottom: 10px" />
+                <p class="help-block text-danger"></p>
+            </div>
+
+                <div class="form-group">
+        <input  name="nom" th:field="*{nom}" id="nom" class="form-control" placeholder="Entrez votre nom"  style="padding-top: 10px;padding-bottom: 10px" />
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+        <input  name="prenom" th:field="*{prenom}" id="prenom" class="form-control" placeholder="Entrez votre prénom"  style="padding-top: 10px;padding-bottom: 10px" />
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+        <input type="email" name="mail" th:field="*{mail}" id="mail" th:required="required" class="form-control" placeholder="Entrez votre e-mail"  style="padding-top: 10px;padding-bottom: 10px" />
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+        <input name="adresse" th:field="*{adresse}" id="adresse" class="form-control" placeholder="Entrez votre adresse"  style="padding-top: 10px;padding-bottom: 10px"/>
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+        <input type="password" name="password" th:field="*{password}" id="password" th:required="required" class="form-control" placeholder="Entrez votre mot de passe"  style="padding-top: 10px;padding-bottom: 10px"/>
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+        <input type="password" name="confirm_password"  id="confirm_password" th:required="required" class="form-control" placeholder="Confirmez votre mot de passe"  style="padding-top: 10px;padding-bottom: 10px"/>
+                    <p class="help-block text-danger"></p>
+                </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 text-center">
+                <div id="success"></div>
+    <p> <input type="submit" value="S'inscrire" class="btn btn-primary btn-xl text-uppercase"  style="padding-top: 10px;padding-bottom: 10px"/> <input type="reset" value="Effacer" class="btn btn-primary btn-xl text-uppercase"  style="padding-top: 10px;padding-bottom: 10px"/> </p>
+                    <p class="help-block text-danger"></p>
+            </div>
+        </div>
+    </div>
+</form>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="copyright">Copyright &copy; MIKI SHOP 2018</span>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item">
+                        <a href="#">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript">
+
+    var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+
+    function validatePassword()
+    {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        }
+        else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Contact form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/agency.min.js"></script>
+</body>
+</html>
